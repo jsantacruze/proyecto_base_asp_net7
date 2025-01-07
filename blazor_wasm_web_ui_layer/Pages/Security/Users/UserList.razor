@@ -1,0 +1,40 @@
+﻿@page "/user-list"
+@using blazor_server_web_ui_layer.Models.Security.Users
+@inject HttpClient api_client
+
+<h3>Lista Usuarios</h3>
+
+@if (users == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+        <MatTable Items="@users" class="mat-elevation-z5">
+            <MatTableHeader>
+                <th>Nombres</th>
+                <th>UserName</th>
+                <th>Email</th>
+            </MatTableHeader>
+            <MatTableRow>
+                <td>@context.FullName</td>
+                <td>@context.UserName</td>
+                <td>@context.Email</td>
+            </MatTableRow>
+        </MatTable>
+}
+
+
+@code {
+    List<User> users { get; set;  }
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+    }
+
+    async Task LoadData()
+    {
+        users = await api_client.GetFromJsonAsync<List<User>>("http://localhost:5022/api/user/list");
+    }
+}
