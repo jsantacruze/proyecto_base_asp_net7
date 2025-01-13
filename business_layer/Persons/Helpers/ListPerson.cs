@@ -20,6 +20,16 @@ namespace business_layer.Persons.Helpers
         {
         }
 
+        public async Task<List<PersonaDTO>> getListByGeneroID(int genero_id)
+        {
+            var personas = await _context.Personas
+                .Include(p => p.Genero)
+                .Where(p => p.genero_id == genero_id)
+                .ToListAsync();
+
+            return null;
+        }
+
         public async Task<List<PersonaDTO>> getList(string filtro)
         {
             var personas = await _context.Personas
