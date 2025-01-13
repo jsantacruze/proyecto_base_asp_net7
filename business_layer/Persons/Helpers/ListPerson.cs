@@ -27,7 +27,14 @@ namespace business_layer.Persons.Helpers
                 .Where(p => p.genero_id == genero_id)
                 .ToListAsync();
 
-            return null;
+            if (!personas.Any())
+            {
+                throw new CustomException(HttpStatusCode.NotFound, 
+                    new { mensaje = "No se encontro ninguna coincidencia para el id de género: " 
+                    + genero_id.ToString() });
+            }
+            var result = _mapper.Map<List<Persona>, List<PersonaDTO>>(personas);
+            return result;
         }
 
         public async Task<List<PersonaDTO>> getList(string filtro)

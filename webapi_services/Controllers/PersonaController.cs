@@ -20,5 +20,12 @@ namespace webapi_services.Controllers
         {
             return await new ListPerson(_context, _mapper).getList(filtro);
         }
+
+        [AllowAnonymous]
+        [HttpGet("list-by-genero")]
+        public async Task<ActionResult<List<PersonaDTO>>> getListByGeneroID(int genero_id)
+        { 
+            return await new ListPerson(_context, _mapper).getListByGeneroID(genero_id);
+        }
     }
 }
