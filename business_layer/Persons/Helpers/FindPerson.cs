@@ -14,38 +14,28 @@ using System.Threading.Tasks;
 
 namespace business_layer.Persons.Helpers
 {
-    public class FindPerson
+    public class FindPerson : BaseHelper
     {
-        public class FindPersonRequest : IRequest<PersonaDTO>
+        public FindPerson(DatabaseContext context, 
+            IMapper mapper) : base(context, mapper)
         {
-            public long? Id { get; set; }
         }
 
-        public class FindPersonRequestHandler : IRequestHandler<FindPersonRequest, PersonaDTO>
+        public async Task<PersonaDTO> find(long persona_id)
         {
-            private readonly DatabaseContext _context;
-            private readonly IMapper _mapper;
-            public FindPersonRequestHandler(DatabaseContext context, IMapper mapper)
+            var persona = await _context.Personas.FindAsync(persona_id);
+            if (persona == null)
             {
-                _context = context;
-                _mapper = mapper;
+                throw new CustomException(HttpStatusCode.NotFound,
+                    new
+                    {
+                        mensaje = "No se encontro ninguna persona conel id: "
+                    + persona_id.ToString()
+                    });
             }
 
-            public async Task<PersonaDTO> Handle(FindPersonRequest request, CancellationToken cancellationToken)
-            {
-                var persona = await _context.Personas
-                .Include(p => p.Genero)
-                .FirstOrDefaultAsync(p => p.persona_id == request.Id);
-
-                if (persona == null)
-                {
-                    throw new CustomException(HttpStatusCode.NotFound, new { mensaje = "No se encontro la persona con el ID: " + request.Id.ToString() });
-                }
-
-                var result = _mapper.Map<Persona, PersonaDTO>(persona);
-                return result;
-            }
+            var result = _mapper.Map<Persona, PersonaDTO>(persona);
+            return result;
         }
-
     }
 }

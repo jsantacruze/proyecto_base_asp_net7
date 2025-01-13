@@ -27,5 +27,12 @@ namespace webapi_services.Controllers
         { 
             return await new ListPerson(_context, _mapper).getListByGeneroID(genero_id);
         }
+
+        [AllowAnonymous]
+        [HttpGet("find")]
+        public async Task<ActionResult<PersonaDTO>> findPersona(long persona_id)
+        {
+            return await new FindPerson(_context, _mapper).find(persona_id);
+        }
     }
 }

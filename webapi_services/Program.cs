@@ -31,7 +31,7 @@ var builder = WebApplication.CreateBuilder(args);
                 );
 
     builder.Services.AddOptions();
-    builder.Services.AddMediatR(typeof(FindPerson.FindPersonRequestHandler).Assembly);
+    //builder.Services.AddMediatR(typeof(FindPerson.FindPersonRequestHandler).Assembly);
     builder.Services.AddControllers(opt => {
         var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
         opt.Filters.Add(new AuthorizeFilter(policy));
