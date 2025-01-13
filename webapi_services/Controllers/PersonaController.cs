@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using business_layer.Persons.DTO;
 using business_layer.Persons.Helpers;
+using business_layer.Persons.Request;
 using data_access;
 using iTextSharp.text;
 using Microsoft.AspNetCore.Authorization;
@@ -33,6 +34,13 @@ namespace webapi_services.Controllers
         public async Task<ActionResult<PersonaDTO>> findPersona(long persona_id)
         {
             return await new FindPerson(_context, _mapper).find(persona_id);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("create")]
+        public async Task<PersonaDTO> create_persona(CreatePersonRequest request)
+        {
+            return await new CreatePerson(_context, _mapper).create_person(request);
         }
     }
 }
