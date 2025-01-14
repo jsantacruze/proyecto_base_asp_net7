@@ -42,5 +42,13 @@ namespace webapi_services.Controllers
         {
             return await new CreatePerson(_context, _mapper).create_person(request);
         }
+
+        [AllowAnonymous]
+        [HttpPut("edit")]
+        public async Task<PersonaDTO> edit_persona(EditPersonRequest request)
+        {
+            return await new EditPerson(_context, _mapper).edit_person(request);
+        }
+
     }
 }
