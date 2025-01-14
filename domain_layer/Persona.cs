@@ -40,7 +40,10 @@ namespace domain_layer
         public string? persona_telefono { get; set; }
         [StringLength(50)]
         public string? persona_movil { get; set; }
-
+        
+        public int? estado_civil_id { get; set; }
+        [ForeignKey("estado_civil_id")]
+        public virtual EstadoCivil EstadoCivil { get; set; }
 
     }
 }

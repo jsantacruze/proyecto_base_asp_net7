@@ -15,6 +15,7 @@ namespace business_layer.AutoMapper
         {
             CreateMap<Genero, GeneroDTO>();
             CreateMap<Persona, PersonaDTO>();
+            CreateMap<EstadoCivil, EstadoCivilDTO>();
         }
     }
 }

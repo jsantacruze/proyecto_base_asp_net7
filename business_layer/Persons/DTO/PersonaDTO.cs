@@ -24,5 +24,8 @@ namespace business_layer.Persons.DTO
         public int genero_id { get; set; }
         public GeneroDTO Genero { get; set; }
 
+        public int estado_civil_id {get; set;}
+        public EstadoCivilDTO EstadoCivil { get; set; }
+
     }
 }

@@ -24,6 +24,7 @@ namespace business_layer.Persons.Helpers
         {
             var personas = await _context.Personas
                 .Include(p => p.Genero)
+                .Include(p => p.EstadoCivil)
                 .Where(p => p.genero_id == genero_id)
                 .ToListAsync();
 
@@ -41,6 +42,7 @@ namespace business_layer.Persons.Helpers
         {
             var personas = await _context.Personas
             .Include(p => p.Genero)
+            .Include(p => p.EstadoCivil)
             .Where(p => p.persona_nombre.Contains(filtro) || p.persona_apellidos.Contains(filtro))
             .ToListAsync();
 

@@ -27,6 +27,7 @@ namespace business_layer.Persons.Helpers
         {
             var persona = await _context.Personas
                 .Include(p => p.Genero)
+                .Include(p => p.EstadoCivil)
                 .Where(p => p.persona_id == persona_id)
                 .FirstOrDefaultAsync();
             if (persona == null)
