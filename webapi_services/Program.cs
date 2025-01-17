@@ -1,6 +1,7 @@
 using business_layer.AutoMapper;
 using business_layer.Contracts;
 using business_layer.Persons.Helpers;
+using business_layer.Security.Users;
 using data_access;
 using domain_layer;
 using FluentValidation.AspNetCore;
@@ -31,7 +32,7 @@ var builder = WebApplication.CreateBuilder(args);
                 );
 
     builder.Services.AddOptions();
-    //builder.Services.AddMediatR(typeof(FindPerson.FindPersonRequestHandler).Assembly);
+    builder.Services.AddMediatR(typeof(ListUsers.Handler).Assembly);
     builder.Services.AddControllers(opt => {
         var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
         opt.Filters.Add(new AuthorizeFilter(policy));
